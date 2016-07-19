@@ -1,10 +1,14 @@
+Download the two packages: JavaDemo and Python-Websocket
+To connect to a TUIO client, please complete the following
+
 # TuioWebTracker
-1.Run TuiSimular.java main class
-  -Displays: Simulation[,0,0,810x607,alignmentX=0.0,alignmentY=0.0,border=,flags=0,maximumSize=,minimumSize=,preferredSize=]
-  -Tuio points detected as set cur 2 0.5890625 0.6375 0.15624999 -0.20833333 -8.138021
-  
+
+
+1.Run TuioSimulator.java main class
+  Console: TCPServer Waiting for client on port 5000...
+          THE CLIENT /127.0.0.1:54034 IS CONNECTED 
+
 2. Start Python Server
-  -Console displays `Connected to 192.168.1.100:8000'
   -Not connected until open with websocket.html
 
 3. Open HTML5 page websocket.html, to connect automatically
@@ -14,8 +18,11 @@
     -websocket.html detects both Mouse and touch clicks. Website will work on laptop and mobile devices.
     
     
-
+To see the demo working properly: Visit Dropbox folder
 
 
 Undocumented tasks:
-1. Make enterprise software to change the Ip address, and dimensions of touch. Integrated with other application
+1. Dwindle code of Python Server to server and webpage
+2. Make enterprise software to change the Ip address, and dimensions of touch.
+3. Create Wiki on documentation and set up
+4. Comment with better changes
