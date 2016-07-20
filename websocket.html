@@ -1,0 +1,155 @@
+<!--
+Websocket.HTML
+by Joe Waldron
+Connects to Websocket open on Python or Java server
+
+Usage: Connect to database and send data x,y points by clicking on canvas of the background.
+Works best in landscape mode.
+-->
+
+<!DOCTYPE html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<meta charset="utf-8" />
+
+<title>WebSocket Test</title>
+
+<script language="javascript" type="text/javascript">
+
+
+
+  function init()
+  {
+	document.myform.url.value = "ws://192.168.1.100:8000/"
+	document.myform.inputtext.value = "Hello World!"
+	document.myform.disconnectButton.disabled = true;
+  }
+
+  function doConnect()
+  {
+    websocket = new WebSocket(document.myform.url.value);
+    websocket.onopen = function(evt) { onOpen(evt) };
+    websocket.onclose = function(evt) { onClose(evt) };
+    websocket.onmessage = function(evt) { onMessage(evt) };
+    websocket.onerror = function(evt) { onError(evt) };
+  }
+
+  function onOpen(evt)
+  {
+    writeToScreen("connected\n");
+	document.myform.connectButton.disabled = true;
+	document.myform.disconnectButton.disabled = false;
+  }
+
+  function onClose(evt)
+  {
+    writeToScreen("disconnected\n");
+	document.myform.connectButton.disabled = false;
+	document.myform.disconnectButton.disabled = true;
+  }
+
+  function onMessage(evt)
+  {
+    writeToScreen("response: " + evt.data + '\n');
+  }
+
+  function onError(evt)
+  {
+    writeToScreen('error: ' + evt.data + '\n');
+
+	websocket.close();
+
+	document.myform.connectButton.disabled = false;
+	document.myform.disconnectButton.disabled = true;
+
+  }
+
+  function doSend(message)
+  {
+    writeToScreen("sent: " + message + '\n'); 
+    websocket.send(message);
+  }
+
+  function writeToScreen(message)
+  {
+    document.myform.outputtext.value += message
+	document.myform.outputtext.scrollTop = document.myform.outputtext.scrollHeight;
+
+  }
+
+  window.addEventListener("load", init, false);
+
+
+   function sendText() {
+		doSend( document.myform.inputtext.value );
+   }
+
+  function clearText() {
+		document.myform.outputtext.value = "";
+   }
+
+   function doDisconnect() {
+		websocket.close();
+   }
+    document.addEventListener("click", printMousePos);
+      setTimeout(function () {
+        openConnection();
+      }, 1);
+    document.addEventListener("touchstart", printMousePos);
+      setTimeout(function () {
+        openConnection();
+      }, 1);
+
+/**
+* 
+**/
+
+  function printMousePos(event) {
+
+    if(event.type == 'click'){
+      console.log("clientX: " + event.clientX + " - clientY: " + event.clientY);
+      var x = parseInt(event.clientX);
+      var y = parseInt(event.clientY);
+      //add image to the click positoin "Touch"
+      var message = [x, y];
+      websocket.send(message);
+    } else{
+
+      var x = parseInt(event.touches[0].clientX);
+      var y = parseInt(event.touches[0].clientY);
+      //add image to the click positoin "Touch"
+      var message = [x, y];
+      websocket.send(message);
+
+    }
+
+   }
+
+</script>
+<!---Canvas is background image that has event listener to send messages to the websocket. Default canvas size is 1200px x 600px-->
+<canvas id="myCanvas" width="1200px" height="600px" style="background-image:url('/img/space.jpg'); background-repeat:no-repeat;
+    background-size:cover;">
+</canvas>
+
+<div id="output"></div>
+
+  <form name="myform">
+  <p>
+  <textarea name="outputtext" rows="20" cols="50"></textarea>
+  </p>
+  <p>
+  <textarea name="inputtext" cols="50"></textarea>
+  </p>
+  <p>
+  <textarea name="url" cols="50"></textarea>
+  </p>
+  <p>
+  <input type="button" name=sendButton value="Send" onClick="sendText();">
+  <input type="button" name=clearButton value="Clear" onClick="clearText();">
+  <input type="button" name=disconnectButton value="Disconnect" onClick="doDisconnect();">
+  <input type="button" name=connectButton value="Connect" onClick="doConnect();">
+  </p>
+
+
+</form>
+</html> 
+
