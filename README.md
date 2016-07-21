@@ -1,3 +1,10 @@
+Java Ide: IntelliJ Java Idea
+Python Ide: Intellij PyCharm
+Server Ide: Xampp (htdoc, conf)
+
+
+
+
 Download the two packages: JavaDemo and Python-Websocket
 To connect to a TUIO client, please complete the following
 
