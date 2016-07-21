@@ -25,6 +25,15 @@ To connect to a TUIO client, please complete the following
     
 To see the demo working properly: Visit Dropbox folder https://www.dropbox.com/sh/hjdlrtpil4fd5j5/AABesJZQK6nsatxRdK2kxAoba?dl=0
 
+References:
+
+TUIOsimulator - http://www.tuio.org/?software
+Java Socket
+Python WebSocket - https://github.com/emmanuelflores/python-websocket-html
+Python Socket 
+Unity Socket - http://forum.unity3d.com/threads/simple-udp-implementation-send-read-via-mono-c.15900/
+
+
 Undocumented tasks:
 1. Dwindle code of Python Server to server and webpage
 2. Make enterprise software to change the Ip address, and dimensions of touch.
